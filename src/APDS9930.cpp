@@ -1161,41 +1161,9 @@ bool APDS9930::setWTIME(uint8_t wtime)
 }
 
 /**
- * @brief enables WLONG bit in Configuration Register
- * 
- * @param[in] enable 1 to set WLONG bit to 1, 0 to set WLONG bit to 0
- * @return True if operation successful. False otherwise.
- */
-
-//artofcircuits
-bool APDS9930::enableWLONG(uint8_t enable)
-{
-    uint8_t val;
-    
-    /* Read value from configuration register */
-    if( !wireReadDataByte(APDS9930_CONFIG, val) ) {
-        return false;
-    }
-    
-    /* Set bits in register to given value */
-    enable &= 0b00000001;
-    enable = enable << 1;
-    val &= 0b11111101;
-    val |= enable;
-    
-    /* Write register value back into CONFIG register */
-    if( !wireWriteDataByte(APDS9930_CONFIG, val) ) {
-        return false;
-    }
-    
-    return true;
-}
-
-
-/**
  * @brief Enables or disables a feature in the APDS-9930 config register
  *
- * @param[in] mode which feature to enable
+ * @param[in] mode which feature to enable in config register
  * @param[in] enable ON (1) or OFF (0)
  * @return True if operation success. False otherwise.
  */
@@ -1225,7 +1193,7 @@ bool APDS9930::setConfig(uint8_t mode, uint8_t enable)
         }
     }
         
-    /* Write value back to ENABLE register */
+    /* Write value back to CONFIG register */
     if( !wireWriteDataByte(APDS9930_CONFIG, reg_val) ) {
         return false;
     }
@@ -1234,19 +1202,19 @@ bool APDS9930::setConfig(uint8_t mode, uint8_t enable)
 }
 
 /**
- * @brief Reads and returns the contents of the ENABLE register
+ * @brief Reads and returns the contents of the CONFIG register
  *
- * @return Contents of the ENABLE register. 0xFF if error.
+ * @return Contents of the CONFIG register. 0xFF if error.
  */
 //artofcircuits
 uint8_t APDS9930::getConfig()
 {
-    uint8_t enable_value;
+    uint8_t config_value;
     
     /* Read current CONFIG register */
-    if( !wireReadDataByte(APDS9930_CONFIG, enable_value) ) {
+    if( !wireReadDataByte(APDS9930_CONFIG, config_value) ) {
         return ERROR;
     }
     
-    return enable_value;
+    return config_value;
 }
