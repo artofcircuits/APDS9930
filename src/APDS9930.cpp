@@ -1179,7 +1179,7 @@ bool APDS9930::setConfig(uint8_t mode, uint8_t enable)
     
     /* Change bit(s) in Config register */
     enable = enable & 0x01;
-    if( mode >= 0 && mode <= 6 ) {
+    if( mode >= 0 && mode <= 2 ) {
         if (enable) {
             reg_val |= (1 << mode);
         } else {
@@ -1187,7 +1187,7 @@ bool APDS9930::setConfig(uint8_t mode, uint8_t enable)
         }
     } else if( mode == ALL ) {
         if (enable) {
-            reg_val = 0x7F;
+            reg_val = 0x07;
         } else {
             reg_val = 0x00;
         }
