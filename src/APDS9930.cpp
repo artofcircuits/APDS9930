@@ -1190,3 +1190,63 @@ bool APDS9930::enableWLONG(uint8_t enable)
     
     return true;
 }
+
+
+/**
+ * @brief Enables or disables a feature in the APDS-9930 config register
+ *
+ * @param[in] mode which feature to enable
+ * @param[in] enable ON (1) or OFF (0)
+ * @return True if operation success. False otherwise.
+ */
+bool APDS9930::setConfig(uint8_t mode, uint8_t enable)
+{
+    uint8_t reg_val;
+
+    /* Read current Config register */
+    reg_val = getConfig();	// asim
+    if( reg_val == ERROR ) {
+        return false;
+    }
+    
+    /* Change bit(s) in Config register */
+    enable = enable & 0x01;
+    if( mode >= 0 && mode <= 6 ) {
+        if (enable) {
+            reg_val |= (1 << mode);
+        } else {
+            reg_val &= ~(1 << mode);
+        }
+    } else if( mode == ALL ) {
+        if (enable) {
+            reg_val = 0x7F;
+        } else {
+            reg_val = 0x00;
+        }
+    }
+        
+    /* Write value back to ENABLE register */
+    if( !wireWriteDataByte(APDS9930_CONFIG, reg_val) ) {
+        return false;
+    }
+        
+    return true;
+}
+
+/**
+ * @brief Reads and returns the contents of the ENABLE register
+ *
+ * @return Contents of the ENABLE register. 0xFF if error.
+ */
+//artofcircuits
+uint8_t APDS9930::getConfig()
+{
+    uint8_t enable_value;
+    
+    /* Read current CONFIG register */
+    if( !wireReadDataByte(APDS9930_CONFIG, enable_value) ) {
+        return ERROR;
+    }
+    
+    return enable_value;
+}
