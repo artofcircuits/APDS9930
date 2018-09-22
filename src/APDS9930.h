@@ -135,6 +135,12 @@
 #define C                       0.746
 #define D                       1.291
 
+/* Acceptable parameters for setConfig - artofcircuits */
+#define PDL                     0
+#define WLONG                   1
+#define AGL                     2
+#define ALL                     7
+
 /* State definitions */
 enum {
   NOTAVAILABLE_STATE,
@@ -213,8 +219,10 @@ public:
     bool readCh1Light(uint16_t &val);
     
    /* power control and wait state methods */
-    bool APDS9930::setWTIME(uint8_t wtime);
-    bool APDS9930::enableWLONG(uint8_t enable);
+    bool APDS9930::setWTIME(uint8_t wtime);    
+    bool APDS9930::setConfig(uint8_t mode, uint8_t enable);
+    uint8_t APDS9930::getConfig();
+
  
 //private:
 
