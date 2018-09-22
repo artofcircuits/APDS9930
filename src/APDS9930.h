@@ -212,6 +212,10 @@ public:
     bool readCh0Light(uint16_t &val);
     bool readCh1Light(uint16_t &val);
     
+   /* power control and wait state methods */
+    bool APDS9930::setWTIME(uint8_t wtime);
+    bool APDS9930::enableWLONG(uint8_t enable);
+ 
 //private:
 
     /* Proximity Interrupt Threshold */
