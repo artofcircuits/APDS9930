@@ -1152,10 +1152,41 @@ int APDS9930::wireReadDataBlock(   uint8_t reg,
  * @param[in] wtime wait time register 
  * @return True if operation successful. False otherwise.
  */
-// artofcircuits
+//artofcircuits
 bool APDS9930::setWTIME(uint8_t wtime)
 {
     if( !wireWriteDataByte(APDS9930_WTIME, wtime) ) {
         return false;
     } else return true;
+}
+
+/**
+ * @brief enables WLONG bit in Configuration Register
+ * 
+ * @param[in] enable 1 to set WLONG bit to 1, 0 to set WLONG bit to 0
+ * @return True if operation successful. False otherwise.
+ */
+
+//artofcircuits
+bool APDS9930::enableWLONG(uint8_t enable)
+{
+    uint8_t val;
+    
+    /* Read value from configuration register */
+    if( !wireReadDataByte(APDS9930_CONFIG, val) ) {
+        return false;
+    }
+    
+    /* Set bits in register to given value */
+    enable &= 0b00000001;
+    enable = enable << 1;
+    val &= 0b11111101;
+    val |= enable;
+    
+    /* Write register value back into CONFIG register */
+    if( !wireWriteDataByte(APDS9930_CONFIG, val) ) {
+        return false;
+    }
+    
+    return true;
 }
