@@ -1145,3 +1145,17 @@ int APDS9930::wireReadDataBlock(   uint8_t reg,
 
     return i;
 }
+
+/**
+ * @brief function that sets wtime
+ * 
+ * @param[in] wtime wait time register 
+ * @return True if operation successful. False otherwise.
+ */
+// artofcircuits
+bool APDS9930::setWTIME(uint8_t wtime)
+{
+    if( !wireWriteDataByte(APDS9930_WTIME, wtime) ) {
+        return false;
+    } else return true;
+}
