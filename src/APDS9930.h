@@ -120,7 +120,7 @@
 #define DEFAULT_CONFIG          0
 #define DEFAULT_PDRIVE          LED_DRIVE_100MA
 #define DEFAULT_PDIODE          2
-#define DEFAULT_PGAIN           PGAIN_8X
+#define DEFAULT_PGAIN           PGAIN_1X
 #define DEFAULT_AGAIN           AGAIN_1X
 #define DEFAULT_PILT            0       // Low proximity threshold
 #define DEFAULT_PIHT            50      // High proximity threshold
